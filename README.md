@@ -77,21 +77,44 @@ achievements strip, links. Components read from it and never inline a fact. Each
 carries a `source` field naming where the fact was verified (résumé, LinkedIn export,
 employment letter, Crossref), so the file can be audited without reading the components.
 
-### Adding a photo
+### Adding or changing photos
 
-Drop a JPEG or PNG into `src/assets/gallery/`, then:
+Photos live in three folders and are discovered automatically — there is no list to update.
+
+| Folder | Used by | Shape |
+|---|---|---|
+| `src/assets/gallery/solo/` | the large mosaic panel | portrait, 820x1090 |
+| `src/assets/gallery/group/` | the five smaller panels | landscape, 760x570 |
+| `src/assets/hero/` | the hero illustration (one file) | any; SVG passes through untouched |
+
+Drop files in, then:
 
 ```bash
-npm run images       # resizes to 1170px wide, converts to WebP, deletes the original
+npm run images        # crops, resizes, converts to WebP, deletes the originals
 ```
 
-The gallery picks it up automatically via `import.meta.glob` — no list to update. Files are
-shown in filename order, so prefix them (`01-`, `02-`). The filename becomes the alt text,
-so name them descriptively: `03-brienz-boat.jpg`, not `IMG_4821.jpg`.
+Filenames are shown in order, so prefix them (`04-lake-brienz.jpg`). The filename also
+becomes the alt text unless there is an entry for it in the `ALT` map at the top of
+`src/components/Mosaic.tsx` — add one there, it takes ten seconds and it is the difference
+between "lake brienz" and a real description.
 
-Committing straight from a phone works (GitHub → Add file → Upload files), but the image
-script won't have run, so the original ships unoptimised. Run `npm run images` next time
-you're at a machine.
+**From a phone, with no laptop:** GitHub → the folder → *Add file* → *Upload files* →
+commit. The site rebuilds itself in about 90 seconds. The one cost is that `npm run images`
+will not have run, so the original ships unoptimised. Run it next time you are at a machine;
+it is idempotent and will simply fix whatever it finds.
+
+### Changing the CV
+
+The CV exists in **three** files: the downloadable PDF, plus one rendered image per page for
+the in-page viewer. Replacing only the PDF leaves the viewer showing the old CV, so the page
+and the download would disagree.
+
+```bash
+cp /path/to/new.pdf public/doc/Anirudh-Garg-CV.pdf
+npm run cv            # re-renders every page, and deletes images from a longer old version
+```
+
+Needs `python3` with `pymupdf`. This is the one job that genuinely wants a laptop.
 
 ### Fonts
 

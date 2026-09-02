@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "images": "node scripts/images.mjs",
     "fonts": "node scripts/fonts.mjs",
-    "typecheck": "tsc -b --noEmit"
+    "typecheck": "tsc -b --noEmit",
+    "cv": "node scripts/cv.mjs"
   },
   "dependencies": {
     "react": "^19.1.0",

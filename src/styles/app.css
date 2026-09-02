@@ -1370,3 +1370,36 @@
     transition: none;
   }
 }
+
+/**
+ * The CV on a phone.
+ *
+ * Fitting an A4 page to a 375px viewport renders 10pt type at about 3px — a reader can see
+ * that a document exists and cannot read a word of it. Below 720px the page is therefore
+ * given a floor width and the viewer scrolls in both directions, so it can be panned at a
+ * legible size. The alternative, shrinking to fit, is only honest if the result is readable.
+ */
+@media (max-width: 720px) {
+  .overlay--cv .sheet__body {
+    align-items: flex-start;
+    overflow: auto;
+  }
+
+  .cv-page {
+    min-width: 620px;
+    max-width: none;
+  }
+}
+
+.sheet__hint {
+  display: none;
+}
+
+@media (max-width: 720px) {
+  .sheet__hint {
+    display: block;
+    position: sticky;
+    left: 0;
+    padding-bottom: var(--s-2);
+  }
+}

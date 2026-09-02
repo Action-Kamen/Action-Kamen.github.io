@@ -50,6 +50,7 @@ export function CvProvider({ children }: { children: ReactNode }) {
           </header>
 
           <div className="sheet__body">
+            <p className="meta sheet__hint">Scroll sideways to read · or download the PDF</p>
             {PAGES.map((src, i) => (
               <img
                 key={src}

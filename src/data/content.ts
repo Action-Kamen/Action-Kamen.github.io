@@ -117,16 +117,19 @@ export const experience: Role[] = [
     from: 'Jun 2026',
     to: 'Aug 2026',
     start: '2026-06-01',
+    /**
+     * Two lines, not four.
+     *
+     * The Experience entry is a timeline, and one role running three times the length of
+     * every other reads as a formatting mistake before it reads as importance. The fuller
+     * account lives once, in the research note under Research — and keeping the mechanism
+     * out of the timeline is the right call anyway while the underlying system is
+     * unpublished.
+     */
     notes: [
-      'Worked with Prof. Zhendong Su and Dr. Cong Li in the Advanced Software ' +
-        'Technologies lab on Reify, a random program ' +
-        'generator built on semantic reification — given a control-flow graph and an ' +
-        'execution path through it, Reify constructs a program guaranteed to follow that ' +
-        'path and produce a known output.',
-      'Adapted the generator towards SV-COMP, the software verification competition: a ' +
-        'generator that knows the answer by construction yields tasks whose expected ' +
-        'verdict is correct by construction rather than by community consensus.',
-      'Worked against LLVM as the substrate for generation and lowering.',
+      'Research on random program generation and compiler testing with Prof. Zhendong Su ' +
+        'and Dr. Cong Li, in the Advanced Software Technologies lab.',
+      'Worked towards generating verification tasks for SV-COMP, with LLVM as the substrate.',
     ],
     links: [
       { label: 'RefractIR', href: 'https://github.com/Action-Kamen/RefractIR' },
@@ -154,14 +157,20 @@ export const experience: Role[] = [
     from: 'May 2025',
     to: 'Aug 2025',
     start: '2025-05-26',
+    /**
+     * Deliberately general.
+     *
+     * The résumé version of these bullets names the specific adjustments, signal types and
+     * hedging quantities involved. That is fine in a document sent to one recruiter and a
+     * different proposition on a public page that is indexed, cached and permanent — at a
+     * firm that keeps almost no public surface on purpose. The shape of the work is still
+     * legible here; the methods are not.
+     */
     notes: [
-      'Built pricing models for ETFs and equities using futures-based adjustments and ' +
-        'cross-asset relationships, testing several model architectures and feature ' +
-        'selection approaches against each other.',
-      'Validated alpha signals and implemented a backtesting engine to turn them into ' +
-        'tradeable strategies.',
-      'Wrote Python tooling for hedge index selection and beta estimation, reconciled against ' +
-        'Bloomberg’s own figures.',
+      'Quantitative research on pricing for listed equity products, comparing model ' +
+        'families and feature-selection approaches against each other.',
+      'Built internal Python tooling for signal validation and backtesting.',
+      'Market structure, workshops and mock trading alongside the research.',
     ],
   },
   {
@@ -548,7 +557,7 @@ export const leadership = [
 
 export const skills = [
   { group: 'Languages', items: ['C++', 'Python', 'R', 'SQL', 'Java', 'OCaml', 'JavaScript', 'Bash', 'LaTeX'] },
-  { group: 'Systems', items: ['CUDA', 'LLVM', 'SpiderMonkey', 'QuickJS', 'FreeBSD', 'GDB', 'Slurm', 'Git'] },
+  { group: 'Systems', items: ['CUDA', 'LLVM', 'SpiderMonkey', 'QuickJS-NG', 'FreeBSD', 'GDB', 'Slurm', 'Git'] },
   { group: 'Numerical', items: ['PyTorch', 'NumPy', 'Pandas', 'SciPy', 'TensorFlow', 'Matplotlib', 'MIP'] },
   { group: 'Markets', items: ['Bloomberg', 'Macrobond', 'MATLAB', 'Backtesting', 'Beta estimation'] },
 ]

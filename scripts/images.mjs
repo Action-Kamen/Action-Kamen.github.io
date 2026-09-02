@@ -1,14 +1,20 @@
 /**
- * Optimises the photographs in place.
+ * Optimises photographs in place.
  *
- * The workflow this protects: drop a photo into src/assets/gallery, commit, done -- ideally
+ * The workflow this protects: drop a photo into the right folder, commit, done — ideally
  * from a phone, through GitHub's web uploader. A photo straight off a phone is a 3120x4160
- * JPEG of roughly a megabyte, and Vite will happily ship that byte for byte. This script
- * resizes to the largest size the layout can actually display, re-encodes to WebP, and
- * deletes the original, so forgetting to optimise costs one command rather than the
- * performance budget.
+ * JPEG of a megabyte or more, and Vite will ship that byte for byte. This resizes to the
+ * largest size the layout can actually display, re-encodes to WebP and deletes the original.
  *
- * Idempotent: files already WebP and already within bounds are left alone.
+ * Idempotent: anything already WebP and already within bounds is left alone.
+ *
+ * Where photos go:
+ *   src/assets/gallery/solo/   photographs of Anirudh alone -- the large mosaic panel
+ *   src/assets/gallery/group/  everything else -- the five smaller panels
+ *   src/assets/hero/           the hero illustration (a single file; SVG is left untouched)
+ *
+ * Filenames become alt text when no entry exists in the ALT map in Mosaic.tsx, so name them
+ * descriptively and prefix with a number to fix the order: `04-lake-brienz.jpg`.
  *
  * Run: npm run images
  */
@@ -17,13 +23,17 @@ import { extname, join } from 'node:path'
 import sharp from 'sharp'
 
 const JOBS = [
-  { dir: 'src/assets/gallery', width: 1170, quality: 78 },
-  { dir: 'src/assets', width: 900, quality: 82, only: /^portrait-src\./, renameTo: 'portrait' },
+  // Portrait crop: the large panel is tall.
+  { dir: 'src/assets/gallery/solo', width: 820, height: 1090, quality: 72 },
+  // Landscape crop: the small panels are wide.
+  { dir: 'src/assets/gallery/group', width: 760, height: 570, quality: 74 },
+  // The hero illustration keeps its own aspect ratio and is not cropped.
+  { dir: 'src/assets/hero', width: 1200, quality: 82 },
 ]
 
-const IMAGE = /\.(jpe?g|png|webp)$/i
+const RASTER = /\.(jpe?g|png|webp)$/i
 
-for (const { dir, width, quality, only, renameTo } of JOBS) {
+for (const { dir, width, height, quality } of JOBS) {
   let names
   try {
     names = await readdir(dir)
@@ -32,29 +42,35 @@ for (const { dir, width, quality, only, renameTo } of JOBS) {
   }
 
   for (const name of names) {
-    if (!IMAGE.test(name)) continue
-    if (only && !only.test(name)) continue
+    if (!RASTER.test(name)) continue // leaves .svg and README/PROMPT files alone
 
     const src = join(dir, name)
     const before = (await stat(src)).size
-    const base = renameTo ?? name.slice(0, -extname(name).length)
+    const base = name.slice(0, -extname(name).length)
     const out = join(dir, `${base}.webp`)
 
-    const image = sharp(src).rotate() // honour EXIF orientation before dropping the metadata
+    const image = sharp(src).rotate() // honour EXIF orientation before metadata is dropped
     const meta = await image.metadata()
 
-    const buffer = await image
-      .resize({ width: Math.min(width, meta.width ?? width), withoutEnlargement: true })
-      .webp({ quality, effort: 6 })
-      .toBuffer()
+    const resize = height
+      ? { width, height, fit: 'cover' }
+      : { width: Math.min(width, meta.width ?? width), withoutEnlargement: true }
+
+    const buffer = await image.resize(resize).webp({ quality, effort: 6 }).toBuffer()
+
+    // Skip the rewrite if it would make the file bigger and nothing needs cropping.
+    if (src === out && buffer.length >= before && !height) {
+      console.log(`${name.padEnd(30)} already optimal`)
+      continue
+    }
 
     await writeFile(out, buffer)
     if (src !== out) await unlink(src)
 
     const dims = await sharp(buffer).metadata()
     console.log(
-      `${name.padEnd(26)} ${(before / 1024).toFixed(0).padStart(5)} KB -> ` +
-        `${(buffer.length / 1024).toFixed(0).padStart(4)} KB  ${dims.width}x${dims.height}  ${base}.webp`,
+      `${name.padEnd(30)} ${(before / 1024).toFixed(0).padStart(5)} KB -> ` +
+        `${(buffer.length / 1024).toFixed(0).padStart(4)} KB  ${dims.width}x${dims.height}`,
     )
   }
 }
