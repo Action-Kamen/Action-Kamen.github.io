@@ -1,0 +1,213 @@
+/* Reset, element defaults and the shared layout primitives. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  /* Nav is fixed; anchor targets must clear it. */
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+body {
+  background: var(--ink-900);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: var(--t-base);
+  line-height: var(--lh-body);
+  font-synthesis-weight: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Numbers line up in tables, timelines and figures. */
+  font-variant-numeric: tabular-nums lining-nums;
+  overflow-x: clip;
+}
+
+img,
+svg,
+canvas,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-display);
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* --- links ---------------------------------------------------------------
+ * Underlines sit below the descenders and thicken on hover. No colour change on
+ * hover: the accent already carries the meaning, and recolouring is noisier.      */
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--iri-soft);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out),
+    text-decoration-thickness var(--dur-fast) var(--ease-out);
+}
+
+a:hover {
+  text-decoration-color: var(--iri);
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--iri);
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+
+::selection {
+  background: var(--iri-glow);
+  color: var(--bone);
+}
+
+/* --- layout primitives --------------------------------------------------- */
+
+.page {
+  width: 100%;
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/**
+ * The monograph grid: a marginalia rail for section numbers and labels, and the content
+ * column beside it. Under 900px the rail becomes a header row instead of disappearing --
+ * the labels are wayfinding, not decoration.
+ */
+.rail-grid {
+  display: grid;
+  grid-template-columns: var(--rail) minmax(0, 1fr);
+  gap: 0 var(--s-12);
+}
+
+@media (max-width: 900px) {
+  .rail-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-6) 0;
+  }
+}
+
+.section {
+  padding-block: var(--s-section);
+  border-top: 1px solid var(--line);
+  scroll-margin-top: 4.5rem;
+}
+
+/* --- shared type roles ---------------------------------------------------- */
+
+/** All-caps metadata: section labels, field names, tags. Mono, wide, quiet. */
+.meta {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+.meta-accent {
+  color: var(--iri);
+}
+
+.lead {
+  font-size: var(--t-lead);
+  line-height: 1.5;
+  color: var(--bone-dim);
+  max-width: var(--measure);
+}
+
+.prose {
+  max-width: var(--measure);
+  color: var(--bone-dim);
+}
+
+.prose + .prose {
+  margin-top: var(--s-4);
+}
+
+.display {
+  font-size: var(--t-h2);
+}
+
+/** A hairline that carries the accent hue -- used to open sections and figures. */
+.rule {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, var(--iri-soft), transparent 62%);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/** Skip link: visible only once focused, which is the only time it is useful. */
+.skip {
+  position: absolute;
+  left: var(--s-4);
+  top: -4rem;
+  z-index: 100;
+  padding: var(--s-3) var(--s-4);
+  background: var(--ink-800);
+  border: 1px solid var(--iri);
+  text-decoration: none;
+  transition: top var(--dur-fast) var(--ease-out);
+}
+
+.skip:focus {
+  top: var(--s-4);
+}

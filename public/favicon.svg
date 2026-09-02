@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Anirudh Garg">
+  <!--
+    A node and the edge leaving it: the smallest honest picture of what the site is about,
+    and still legible at 16px where a monogram would turn to mud. The arc carries the
+    iridium hue used throughout the site.
+  -->
+  <defs>
+    <linearGradient id="iri" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#b9d3ee"/>
+      <stop offset="1" stop-color="#5d8f9a"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="6" fill="#08090b"/>
+  <path d="M7 22.5 C 13 22.5, 13 9.5, 19.5 9.5" fill="none" stroke="url(#iri)" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="7" cy="22.5" r="2.6" fill="url(#iri)"/>
+  <circle cx="22.5" cy="9.5" r="3.4" fill="none" stroke="url(#iri)" stroke-width="1.8"/>
+</svg>

@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024" role="img">
+  <!--
+    A desk that is the portrait: every object on it is something in the text beside it.
+    Line art rather than rendering, because the page is set as a monograph and a figure in a
+    monograph is engraved, not photographed. Bone line work, one iridium accent, transparent
+    ground so the page's own ink shows through.
+  -->
+  <defs>
+    <clipPath id="racketHead">
+      <path d="M0 -138 C28 -138 46 -115 46 -83 C46 -53 34 -18 16 5 C10 11 7 16 6 21 L-6 21 C-7 16 -10 11 -16 5 C-34 -18 -46 -53 -46 -83 C-46 -115 -28 -138 0 -138 Z"/>
+    </clipPath>
+  </defs>
+
+  <g fill="none" stroke="#e9e5dd" stroke-width="3.1" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- ============ wall: a window onto two places, and a board of work ============ -->
+
+    <g stroke="#6c6a66" stroke-width="2.4">
+      <rect x="72" y="96" width="384" height="300" rx="2"/>
+      <line x1="264" y1="96" x2="264" y2="396"/>
+      <line x1="56" y1="396" x2="472" y2="396"/>
+      <polyline points="88,338 128,262 156,300 196,214 228,286 248,258 248,338"/>
+      <polyline points="118,292 138,272 158,296"/>
+      <line x1="88" y1="338" x2="248" y2="338"/>
+      <polyline points="280,338 280,290 302,290 302,258 324,258 324,312 346,312
+                        346,232 370,232 370,316 396,316 396,278 418,278 418,326
+                        440,326 440,338"/>
+      <line x1="280" y1="338" x2="440" y2="338"/>
+    </g>
+    <circle cx="410" cy="164" r="19" stroke="#9fc4e8" stroke-width="2.4"/>
+
+    <g stroke-width="2.8">
+      <rect x="560" y="112" width="392" height="284" rx="3"/>
+      <g stroke="#6c6a66" stroke-width="2.2">
+        <rect x="592" y="146" width="106" height="132"/>
+        <line x1="604" y1="172" x2="686" y2="172"/>
+        <line x1="604" y1="192" x2="686" y2="192"/>
+        <line x1="604" y1="212" x2="662" y2="212"/>
+        <line x1="604" y1="232" x2="686" y2="232"/>
+        <rect x="726" y="176" width="98" height="118"/>
+        <line x1="738" y1="204" x2="812" y2="204"/>
+        <line x1="738" y1="224" x2="812" y2="224"/>
+        <line x1="738" y1="244" x2="790" y2="244"/>
+        <rect x="848" y="150" width="80" height="102"/>
+      </g>
+      <!-- the pinned sheet that is a control flow graph, echoed on the laptop below -->
+      <g stroke="#9fc4e8" stroke-width="2.2">
+        <line x1="878" y1="188" x2="878" y2="228"/>
+        <line x1="878" y1="188" x2="906" y2="188"/>
+        <line x1="878" y1="228" x2="902" y2="228"/>
+        <circle cx="878" cy="188" r="4.5" fill="#9fc4e8"/>
+        <circle cx="906" cy="188" r="3.6"/>
+        <circle cx="878" cy="228" r="4.5" fill="#9fc4e8"/>
+        <circle cx="902" cy="228" r="3.6"/>
+      </g>
+      <g stroke="#6c6a66" stroke-width="2.1">
+        <circle cx="645" cy="146" r="4"/>
+        <circle cx="775" cy="176" r="4"/>
+        <circle cx="888" cy="150" r="4"/>
+      </g>
+    </g>
+
+    <!-- ============ desk ============ -->
+    <g>
+      <line x1="40" y1="664" x2="984" y2="664"/>
+      <path d="M40 664 v30 h944 v-30"/>
+      <line x1="40" y1="694" x2="984" y2="694"/>
+    </g>
+
+    <g>
+      <rect x="86" y="620" width="188" height="20" rx="2"/>
+      <rect x="96" y="596" width="170" height="24" rx="2"/>
+      <rect x="78" y="570" width="196" height="26" rx="2"/>
+      <line x1="104" y1="570" x2="104" y2="596"/>
+      <line x1="118" y1="596" x2="118" y2="620"/>
+      <line x1="110" y1="620" x2="110" y2="640"/>
+    </g>
+
+    <path d="M310 596 h62 v50 a12 12 0 0 1 -12 12 h-38 a12 12 0 0 1 -12 -12 z"/>
+    <path d="M372 610 a17 17 0 0 1 0 30"/>
+
+    <g>
+      <path d="M424 664 l20 -218 h236 l20 218 z"/>
+      <path d="M410 664 h304 l-8 16 h-288 z"/>
+      <g stroke="#9fc4e8" stroke-width="2.4">
+        <line x1="520" y1="500" x2="520" y2="616"/>
+        <line x1="520" y1="500" x2="600" y2="500"/>
+        <line x1="520" y1="558" x2="590" y2="558"/>
+        <line x1="600" y1="558" x2="600" y2="616"/>
+        <line x1="520" y1="616" x2="600" y2="616"/>
+        <circle cx="520" cy="500" r="6.5" fill="#9fc4e8"/>
+        <circle cx="600" cy="500" r="5"/>
+        <circle cx="520" cy="558" r="6.5" fill="#9fc4e8"/>
+        <circle cx="590" cy="558" r="5"/>
+        <circle cx="520" cy="616" r="6.5" fill="#9fc4e8"/>
+        <circle cx="600" cy="616" r="5"/>
+      </g>
+    </g>
+
+    <g>
+      <rect x="756" y="622" width="130" height="34" rx="5"/>
+      <line x1="756" y1="639" x2="886" y2="639"/>
+      <g stroke-width="1.9">
+        <line x1="774" y1="624" x2="774" y2="637"/>
+        <line x1="792" y1="624" x2="792" y2="637"/>
+        <line x1="810" y1="624" x2="810" y2="637"/>
+        <line x1="828" y1="624" x2="828" y2="637"/>
+        <line x1="846" y1="624" x2="846" y2="637"/>
+        <line x1="864" y1="624" x2="864" y2="637"/>
+      </g>
+    </g>
+
+    <g stroke-width="2.4">
+      <path d="M900 664 l14 -74 h72 l-14 74 z"/>
+      <line x1="918" y1="612" x2="978" y2="612"/>
+      <line x1="915" y1="626" x2="974" y2="626"/>
+      <line x1="912" y1="640" x2="952" y2="640"/>
+    </g>
+
+    <!-- ============ foreground ============ -->
+
+    <!--
+      Bicycle front wheel. Drawn as a tyre on a rim rather than one outline with spokes:
+      two concentric circles give it the depth that made the first attempt read as a wagon
+      wheel, and the spokes stop short of the rim because that is where real spokes end.
+    -->
+    <g>
+      <circle cx="176" cy="856" r="128"/>
+      <circle cx="176" cy="856" r="112" stroke-width="2.4"/>
+      <circle cx="176" cy="856" r="105" stroke="#6c6a66" stroke-width="1.9"/>
+      <g stroke="#6c6a66" stroke-width="1.9">
+        <line x1="176" y1="732" x2="176" y2="744"/>
+        <line x1="238" y1="748" x2="232" y2="759"/>
+        <line x1="284" y1="794" x2="273" y2="800"/>
+        <line x1="300" y1="856" x2="288" y2="856"/>
+        <line x1="284" y1="918" x2="273" y2="912"/>
+        <line x1="238" y1="964" x2="232" y2="953"/>
+        <line x1="176" y1="980" x2="176" y2="968"/>
+        <line x1="114" y1="964" x2="120" y2="953"/>
+        <line x1="68" y1="918" x2="79" y2="912"/>
+        <line x1="52" y1="856" x2="64" y2="856"/>
+        <line x1="68" y1="794" x2="79" y2="800"/>
+        <line x1="114" y1="748" x2="120" y2="759"/>
+      </g>
+      <g stroke="#6c6a66" stroke-width="1.6">
+        <line x1="176" y1="841" x2="176" y2="755"/>
+        <line x1="189" y1="861" x2="264" y2="904"/>
+        <line x1="182" y1="868" x2="225" y2="943"/>
+        <line x1="170" y1="868" x2="127" y2="943"/>
+        <line x1="163" y1="861" x2="88" y2="904"/>
+        <line x1="176" y1="871" x2="176" y2="957"/>
+        <line x1="161" y1="851" x2="75" y2="833"/>
+        <line x1="191" y1="851" x2="277" y2="833"/>
+      </g>
+      <circle cx="176" cy="856" r="15" stroke-width="2.4"/>
+      <circle cx="176" cy="856" r="5" stroke="#6c6a66" stroke-width="1.9"/>
+    </g>
+
+    <!--
+      A squash racket. The give-away is proportion, not outline: a squash head is only about
+      a third of the racket's length, where a tennis head is closer to half, and the hoop is
+      a teardrop that is widest above centre rather than a symmetric oval. Getting those two
+      ratios wrong is what made the previous attempts read as badminton.
+    -->
+    <g transform="translate(486 868) rotate(14)">
+      <path d="M0 -138 C28 -138 46 -115 46 -83 C46 -53 34 -18 16 5 C10 11 7 16 6 21 L-6 21 C-7 16 -10 11 -16 5 C-34 -18 -46 -53 -46 -83 C-46 -115 -28 -138 0 -138 Z" stroke-width="2.9"/>
+      <g clip-path="url(#racketHead)" stroke="#6c6a66" stroke-width="0.95">
+        <line x1="-38" y1="-146" x2="-38" y2="28"/>
+        <line x1="-31" y1="-146" x2="-31" y2="28"/>
+        <line x1="-24" y1="-146" x2="-24" y2="28"/>
+        <line x1="-17" y1="-146" x2="-17" y2="28"/>
+        <line x1="-10" y1="-146" x2="-10" y2="28"/>
+        <line x1="-3" y1="-146" x2="-3" y2="28"/>
+        <line x1="4" y1="-146" x2="4" y2="28"/>
+        <line x1="11" y1="-146" x2="11" y2="28"/>
+        <line x1="18" y1="-146" x2="18" y2="28"/>
+        <line x1="25" y1="-146" x2="25" y2="28"/>
+        <line x1="32" y1="-146" x2="32" y2="28"/>
+        <line x1="-54" y1="-128" x2="54" y2="-128"/>
+        <line x1="-54" y1="-121" x2="54" y2="-121"/>
+        <line x1="-54" y1="-114" x2="54" y2="-114"/>
+        <line x1="-54" y1="-107" x2="54" y2="-107"/>
+        <line x1="-54" y1="-100" x2="54" y2="-100"/>
+        <line x1="-54" y1="-93" x2="54" y2="-93"/>
+        <line x1="-54" y1="-86" x2="54" y2="-86"/>
+        <line x1="-54" y1="-79" x2="54" y2="-79"/>
+        <line x1="-54" y1="-72" x2="54" y2="-72"/>
+        <line x1="-54" y1="-65" x2="54" y2="-65"/>
+        <line x1="-54" y1="-58" x2="54" y2="-58"/>
+        <line x1="-54" y1="-51" x2="54" y2="-51"/>
+        <line x1="-54" y1="-44" x2="54" y2="-44"/>
+        <line x1="-54" y1="-37" x2="54" y2="-37"/>
+        <line x1="-54" y1="-30" x2="54" y2="-30"/>
+        <line x1="-54" y1="-23" x2="54" y2="-23"/>
+        <line x1="-54" y1="-16" x2="54" y2="-16"/>
+        <line x1="-54" y1="-9" x2="54" y2="-9"/>
+        <line x1="-54" y1="-2" x2="54" y2="-2"/>
+        <line x1="-54" y1="5" x2="54" y2="5"/>
+        <line x1="-54" y1="12" x2="54" y2="12"/>
+        <line x1="-54" y1="19" x2="54" y2="19"/>
+      </g>
+      <!-- no bridge across the throat: on a teardrop frame the strings run into the taper,
+           which is the shape's whole signature -->
+      <line x1="-3.5" y1="21" x2="-3.5" y2="100" stroke-width="2"/>
+      <line x1="3.5" y1="21" x2="3.5" y2="100" stroke-width="2"/>
+      <path d="M-7 100 h14 v41 a7 7 0 0 1 -14 0 z" stroke-width="2.3"/>
+      <g stroke="#6c6a66" stroke-width="1.3">
+        <line x1="-7" y1="112" x2="7" y2="117"/>
+        <line x1="-7" y1="123" x2="7" y2="128"/>
+        <line x1="-7" y1="134" x2="7" y2="139"/>
+      </g>
+    </g>
+
+    <g stroke-width="2.7">
+      <path d="M628 986 h340 v-118 h-340 z"/>
+      <line x1="628" y1="900" x2="968" y2="900"/>
+      <g>
+        <line x1="666" y1="900" x2="666" y2="986"/>
+        <line x1="704" y1="900" x2="704" y2="986"/>
+        <line x1="742" y1="900" x2="742" y2="986"/>
+        <line x1="780" y1="900" x2="780" y2="986"/>
+        <line x1="818" y1="900" x2="818" y2="986"/>
+        <line x1="856" y1="900" x2="856" y2="986"/>
+        <line x1="894" y1="900" x2="894" y2="986"/>
+        <line x1="932" y1="900" x2="932" y2="986"/>
+      </g>
+      <g fill="#e9e5dd" stroke="none">
+        <rect x="655" y="900" width="22" height="48"/>
+        <rect x="693" y="900" width="22" height="48"/>
+        <rect x="769" y="900" width="22" height="48"/>
+        <rect x="807" y="900" width="22" height="48"/>
+        <rect x="845" y="900" width="22" height="48"/>
+        <rect x="921" y="900" width="22" height="48"/>
+      </g>
+    </g>
+  </g>
+</svg>

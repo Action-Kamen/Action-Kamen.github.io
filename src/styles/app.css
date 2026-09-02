@@ -1,0 +1,1372 @@
+/* Component styles. Ordered the way the page is: nav, hero, section chrome, then content. */
+
+/* =========================================================== nav */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  /* Sits above the hero field without a background until it needs one. */
+  transition: background var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  border-bottom: 1px solid transparent;
+}
+
+.nav--solid {
+  background: color-mix(in srgb, var(--ink-900) 82%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-bottom-color: var(--line);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3.5rem;
+}
+
+.nav__mark {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  color: var(--bone);
+}
+
+.nav__right {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+}
+
+.nav__cv {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.nav__toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  background: none;
+  border: 0;
+  padding: var(--s-2) 0;
+  cursor: pointer;
+}
+
+/* Two rules that cross into an x. Cheaper and quieter than a hamburger, and it reads as
+   "contents" because it sits next to the word. */
+.nav__glyph {
+  position: relative;
+  width: 16px;
+  height: 10px;
+}
+
+.nav__glyph span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--bone);
+  transition: transform var(--dur) var(--ease-settle);
+}
+
+.nav__glyph span:nth-child(1) { top: 2px; }
+.nav__glyph span:nth-child(2) { top: 7px; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================== hero */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* svh, not vh: on iOS Safari vh includes the collapsing toolbar, so a 100vh hero is
+     cropped on load and the scroll cue sits below the fold on exactly the devices that
+     most need it. */
+  min-height: 100svh;
+  padding-block: 8rem var(--s-12);
+  overflow: hidden;
+}
+
+/* The CSS ground. This is the WebGL fallback and it is always painted, so a machine with
+   no WebGL2 gets a considered gradient rather than flat black. */
+.hero__ground {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(120% 90% at 78% 8%, var(--iri-glow), transparent 58%),
+    radial-gradient(90% 70% at 8% 96%, color-mix(in srgb, var(--iri-soft) 16%, transparent), transparent 62%),
+    var(--ink-900);
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  /* screen blend keeps the ink ground and lets only the light through */
+  /* screen over the ink ground: the canvas contributes light only, never darkens. Which
+     also means the shader's output IS very nearly the final colour, so its amplitude has
+     to be tuned as an absolute value rather than as an overlay strength. */
+  mix-blend-mode: screen;
+  opacity: 0.72;
+  animation: field-in 1.6s var(--ease-out) both;
+}
+
+@keyframes field-in {
+  from { opacity: 0; }
+  to { opacity: 0.72; }
+}
+
+.hero__inner {
+  position: relative;
+  width: 100%;
+}
+
+.hero__eyebrow {
+  margin-bottom: var(--s-8);
+}
+
+.hero__name {
+  font-size: var(--t-h1);
+  line-height: 0.9;
+  font-weight: 320;
+  letter-spacing: -0.035em;
+  margin-bottom: var(--s-8);
+}
+
+.hero__statement {
+  font-family: var(--font-display);
+  font-size: var(--t-lead);
+  line-height: 1.45;
+  color: var(--bone-dim);
+  max-width: 34ch;
+  margin-bottom: var(--s-12);
+}
+
+.hero__facts {
+  display: grid;
+  gap: var(--s-6);
+  /* 11rem, not 15: with an illustration beside it the text column is ~640px, and a wider
+     track drops "Before" onto its own row for no reason. */
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  max-width: 58rem;
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+  margin-bottom: var(--s-8);
+}
+
+.fact dd {
+  margin: var(--s-2) 0 0;
+  font-size: var(--t-sm);
+  line-height: 1.45;
+  color: var(--bone-dim);
+}
+
+.fact strong {
+  font-weight: 600;
+  color: var(--bone);
+}
+
+.fact__sub {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--bone-faint);
+  margin-top: 2px;
+}
+
+.hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: var(--t-sm);
+  color: var(--bone-faint);
+}
+
+.hero__cue {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--s-12);
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+}
+
+.hero__cue-line {
+  display: block;
+  width: 3rem;
+  height: 1px;
+  background: linear-gradient(90deg, var(--bone-ghost), var(--iri));
+  transform-origin: left;
+  animation: cue 2.6s var(--ease-settle) infinite;
+}
+
+@keyframes cue {
+  0%, 100% { transform: scaleX(0.35); opacity: 0.5; }
+  50%      { transform: scaleX(1);    opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .hero__cue { display: none; }
+}
+
+/* =========================================================== section chrome */
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  position: sticky;
+  top: 6rem;
+  align-self: start;
+}
+
+.rail__index {
+  color: var(--iri);
+  font-size: var(--t-sm);
+}
+
+.rail__label {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+.rail__tick {
+  width: 100%;
+  height: 1px;
+  margin-top: var(--s-2);
+  background: linear-gradient(90deg, var(--iri-soft), transparent);
+}
+
+@media (max-width: 900px) {
+  .rail {
+    position: static;
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--s-4);
+  }
+  .rail__tick {
+    flex: 1;
+    margin-top: 0;
+  }
+}
+
+/* The settle. Content converges on its final position; it does not slide in from offstage. */
+.rail-body > * {
+  opacity: 0;
+  transform: translateY(0.9rem);
+  transition: opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-settle);
+}
+
+[data-settled='true'] .rail-body > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* =========================================================== paper */
+
+.paper__venue {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2);
+  margin-bottom: var(--s-4);
+}
+
+.paper__sep {
+  color: var(--bone-ghost);
+}
+
+.paper__title {
+  font-size: var(--t-h2);
+  font-style: italic;
+  font-weight: 400;
+  max-width: 22ch;
+  margin-bottom: var(--s-6);
+}
+
+.paper__title a {
+  text-decoration-color: transparent;
+}
+
+.paper__title a:hover {
+  text-decoration-color: var(--iri);
+}
+
+.paper__authors {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--s-8);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2) var(--s-6);
+}
+
+.paper__authors li {
+  display: flex;
+  flex-direction: column;
+  padding-left: var(--s-3);
+  border-left: 1px solid var(--line-strong);
+}
+
+.paper__author-name {
+  font-size: var(--t-sm);
+  color: var(--bone-dim);
+}
+
+.paper__affiliation {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--bone-faint);
+}
+
+/* The one author who is him. A left rule in the accent, not a highlighter. */
+.paper__authors .is-self {
+  border-left-color: var(--iri);
+}
+
+.paper__authors .is-self .paper__author-name {
+  color: var(--bone);
+  font-weight: 600;
+}
+
+.paper__abstract {
+  margin: 0 0 var(--s-8);
+  padding: var(--s-6);
+  max-width: var(--measure);
+  background: var(--ink-850);
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--iri-soft);
+  border-radius: var(--radius);
+}
+
+.paper__abstract p {
+  font-family: var(--font-display);
+  font-size: var(--t-base);
+  line-height: 1.65;
+  color: var(--bone-dim);
+}
+
+.paper__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-6);
+  font-size: var(--t-sm);
+}
+
+.paper__links a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: var(--s-2);
+}
+
+
+
+/* =========================================================== work */
+
+.work__lead {
+  margin-bottom: var(--s-12);
+}
+
+.specs {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.spec {
+  border-bottom: 1px solid var(--line);
+  padding-block: var(--s-6);
+}
+
+.spec__head {
+  margin: 0;
+}
+
+.spec__toggle {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--s-4);
+  width: 100%;
+  padding: 0;
+  background: none;
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+.spec__index {
+  color: var(--iri);
+}
+
+.spec__title {
+  font-family: var(--font-display);
+  font-size: var(--t-h3);
+  letter-spacing: var(--ls-display);
+  color: var(--bone);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.spec__toggle:hover .spec__title {
+  color: var(--iri);
+}
+
+.spec__kind {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  justify-self: end;
+  text-align: right;
+}
+
+/* A single stroke that rotates. Two strokes crossing would read as "close". */
+.spec__chevron {
+  grid-column: 3;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid var(--bone-dim);
+  border-bottom: 1px solid var(--bone-dim);
+  transform: rotate(45deg);
+  transition: transform var(--dur) var(--ease-settle);
+  justify-self: end;
+}
+
+.spec[data-expanded='true'] .spec__chevron {
+  transform: rotate(225deg);
+}
+
+.spec__summary {
+  margin: var(--s-3) 0 0 3.5rem;
+  max-width: var(--measure);
+  color: var(--bone-dim);
+  font-size: var(--t-sm);
+}
+
+.spec__body {
+  margin: var(--s-8) 0 var(--s-2) 3.5rem;
+  display: grid;
+  gap: var(--s-8);
+}
+
+.spec__prose {
+  display: grid;
+  gap: var(--s-6);
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  align-items: start;
+}
+
+.spec__block h4 {
+  margin-bottom: var(--s-3);
+}
+
+.spec__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--s-3);
+  color: var(--bone-dim);
+  max-width: var(--measure);
+}
+
+.spec__list li {
+  position: relative;
+  padding-left: var(--s-4);
+}
+
+.spec__list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 6px;
+  height: 1px;
+  background: var(--iri-soft);
+}
+
+.spec__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4) var(--s-8);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.spec__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  list-style: none;
+  margin: var(--s-3) 0 0;
+  padding: 0;
+  font-size: var(--t-sm);
+}
+
+.spec__context {
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 640px) {
+  .spec__toggle {
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: var(--s-3);
+  }
+  .spec__kind {
+    grid-column: 2 / -1;
+    justify-self: start;
+    text-align: left;
+    margin-top: var(--s-1);
+  }
+  .spec__chevron {
+    grid-row: 1;
+  }
+  .spec__summary,
+  .spec__body {
+    margin-left: 0;
+  }
+}
+
+/* --- figures ------------------------------------------------------------- */
+
+.figure {
+  margin: 0;
+  /* Capped rather than full-bleed: these are dense little diagrams, and stretching one to
+     900px just spreads eight nodes over an acre of empty ink. */
+  max-width: 46rem;
+}
+
+.figure__canvas,
+.figure--placeholder {
+  display: block;
+  width: 100%;
+  background: var(--ink-850);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.figure--placeholder {
+  aspect-ratio: 1 / 0.52;
+}
+
+.figure__caption {
+  margin-top: var(--s-3);
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+/* --- tags ---------------------------------------------------------------- */
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  list-style: none;
+  margin: var(--s-3) 0 0;
+  padding: 0;
+}
+
+.tags li {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  color: var(--bone-faint);
+  padding: 2px var(--s-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* --- the index of other work --------------------------------------------- */
+
+.work__more {
+  margin: var(--s-16) 0 var(--s-6);
+}
+
+.index {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-8);
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+}
+
+.index__item {
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+}
+
+.index__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-3);
+}
+
+.index__title {
+  font-size: var(--t-base);
+  font-family: var(--font-display);
+}
+
+.index__year {
+  color: var(--bone-faint);
+  white-space: nowrap;
+}
+
+.index__context {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  margin-top: 2px;
+}
+
+.index__blurb {
+  margin-top: var(--s-3);
+  font-size: var(--t-sm);
+  color: var(--bone-dim);
+}
+
+/* =========================================================== experience */
+
+.roles {
+  list-style: none;
+  margin: 0 0 var(--s-16);
+  padding: 0;
+}
+
+.role {
+  display: grid;
+  grid-template-columns: 9rem minmax(0, 1fr);
+  gap: var(--s-6);
+  padding-block: var(--s-6);
+  border-top: 1px solid var(--line);
+}
+
+.role__when {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-2);
+  align-items: start;
+}
+
+.role__badge {
+  color: var(--iri);
+  border: 1px solid var(--iri-soft);
+  border-radius: var(--radius);
+  padding: 1px var(--s-2);
+}
+
+.role__org {
+  font-size: var(--t-h3);
+}
+
+.role__title {
+  color: var(--bone-dim);
+  font-size: var(--t-sm);
+  margin-top: 2px;
+}
+
+.role__where {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  margin-top: var(--s-1);
+}
+
+.role__notes {
+  list-style: none;
+  margin: var(--s-4) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-3);
+  max-width: var(--measure);
+  color: var(--bone-dim);
+  font-size: var(--t-sm);
+}
+
+.role__notes li {
+  position: relative;
+  padding-left: var(--s-4);
+}
+
+.role__notes li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 6px;
+  height: 1px;
+  background: var(--iri-soft);
+}
+
+/* The incoming role is the headline fact; it gets the accent and nothing else does. */
+.role[data-incoming='true'] .role__org {
+  color: var(--iri);
+}
+
+@media (max-width: 640px) {
+  .role {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-3);
+  }
+  .role__when {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--s-3);
+  }
+}
+
+.edu {
+  padding-block: var(--s-6);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: var(--s-12);
+}
+
+.edu__degree {
+  font-size: var(--t-h3);
+}
+
+.edu__where {
+  color: var(--bone-dim);
+  margin-top: var(--s-1);
+}
+
+/* --- the marks strip ------------------------------------------------------ */
+
+.marks {
+  list-style: none;
+  margin: 0 0 var(--s-16);
+  padding: 0;
+  display: grid;
+  gap: var(--s-6);
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+}
+
+.mark {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: var(--s-4);
+  border-left: 1px solid var(--line-strong);
+}
+
+.mark__figure {
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  color: var(--iri);
+  letter-spacing: -0.01em;
+}
+
+.mark__label {
+  font-size: var(--t-sm);
+  color: var(--bone);
+}
+
+.mark__detail {
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+/* --- two-column tail ------------------------------------------------------ */
+
+.split {
+  display: grid;
+  gap: var(--s-12);
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+
+.split__head {
+  margin-bottom: var(--s-4);
+  padding-bottom: var(--s-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.lead-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-4);
+  font-size: var(--t-sm);
+}
+
+.lead-list strong {
+  font-weight: 600;
+  color: var(--bone);
+}
+
+.lead-list__note {
+  color: var(--bone-dim);
+  margin-top: 2px;
+}
+
+.skills {
+  margin: 0;
+  display: grid;
+  gap: var(--s-4);
+}
+
+.skills__row dt {
+  margin-bottom: var(--s-1);
+}
+
+.skills__row dd {
+  margin: 0;
+}
+
+.skills .tags {
+  margin-top: 0;
+}
+
+/* =========================================================== human */
+
+.human {
+  display: grid;
+  gap: var(--s-12);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .human {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.human__links {
+  list-style: none;
+  margin: var(--s-8) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-4);
+}
+
+.human__links li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-3);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.human__media {
+  min-width: 0;
+}
+
+.portrait {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  /* Warms the photo into the palette instead of letting a cream studio wall fight the ink. */
+  filter: grayscale(0.35) contrast(1.04) brightness(0.94);
+}
+
+.human__text .lead + .prose {
+  margin-top: var(--s-4);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 520px) {
+  .human__media {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* =========================================================== contact */
+
+.contact__lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.1vw, 2.25rem);
+  max-width: 26ch;
+  margin-bottom: var(--s-8);
+}
+
+.contact__mail {
+  margin-bottom: var(--s-12);
+}
+
+.mailto {
+  font-family: var(--font-mono);
+  font-size: var(--t-lead);
+  color: var(--iri);
+  text-decoration-color: var(--iri-soft);
+}
+
+.contact__links {
+  list-style: none;
+  margin: 0 0 var(--s-16);
+  padding: 0;
+  display: grid;
+  gap: var(--s-4);
+  max-width: 30rem;
+}
+
+.contact__links li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding-bottom: var(--s-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.colophon {
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: var(--s-4);
+}
+
+.colophon .meta {
+  text-transform: none;
+  letter-spacing: 0.015em;
+  line-height: 1.7;
+  max-width: 60ch;
+}
+
+.colophon__year {
+  color: var(--bone-ghost);
+}
+
+/* --- hero illustration ---------------------------------------------------
+ * The hero is a single column until an illustration exists, then it becomes two.
+ * Driven off a data attribute rather than a separate class so the empty state is a
+ * first-class layout and not a fallback. */
+
+.hero__inner[data-illustrated='true'] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.72fr);
+  gap: var(--s-12);
+  align-items: center;
+}
+
+.hero__plate {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 30rem);
+}
+
+/* A plate mark, the way a figure is set in a printed monograph: a hairline that only
+   closes two corners, so the image reads as mounted rather than boxed. */
+.hero__plate::before,
+.hero__plate::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--iri-soft);
+  opacity: 0.6;
+}
+
+.hero__plate::before {
+  top: -10px;
+  left: -10px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.hero__plate::after {
+  right: -10px;
+  bottom: -10px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.hero__illustration {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  /* The artwork's line work peaks at pure #ffffff and the page's is bone (#e9e5dd, max 233).
+     brightness(0.92) lands 255 on ~235, which puts the drawing on the same value as the
+     type beside it instead of a stop brighter than everything else on the page. The slight
+     desaturation pulls its cyan back toward the iridium accent. Measured, not guessed. */
+  filter: brightness(0.92) saturate(0.88) contrast(1.02);
+}
+
+@media (max-width: 900px) {
+  .hero__inner[data-illustrated='true'] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-8);
+  }
+  /* Above the name on a phone: it is the thing that says "a person made this", and it
+     should not be something you have to scroll past the fold to find. */
+  .hero__plate {
+    order: -1;
+    justify-self: start;
+    width: min(68%, 17rem);
+  }
+}
+
+/* --- signature ----------------------------------------------------------- */
+
+.signature {
+  width: min(15rem, 62%);
+  height: auto;
+  margin-top: var(--s-6);
+  opacity: 0.78;
+}
+
+/* --- grain ---------------------------------------------------------------
+ * A large flat field of near-black reads as sterile on a good screen and bands visibly on
+ * a cheap one. A little film grain fixes both: it gives the ink a surface, and it dithers
+ * the wide gradients so they stop contouring.
+ *
+ * An inline feTurbulence tile rather than a noise PNG: ~260 bytes against ~34 KB of base64,
+ * rasterised once by the compositor and then just repeated. It is fixed, never animated,
+ * and transparent to pointer events, so it costs one composited layer and nothing else. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.038;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Grain over a photograph is noise on top of noise; the photos have their own. */
+@media (prefers-reduced-transparency: reduce) {
+  .grain {
+    display: none;
+  }
+}
+
+/* =========================================================== overlays */
+
+/**
+ * Native <dialog> in the top layer. `inset: 0` with `max-*: none` overrides the UA's
+ * centring and sizing so the element genuinely fills the viewport -- without it a dialog
+ * is a centred box and the page is visible all around it, which is the exact failure this
+ * replaced.
+ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--ink-900);
+  color: var(--bone);
+  overflow: hidden;
+}
+
+.overlay::backdrop {
+  background: rgba(3, 4, 5, 0.86);
+}
+
+.overlay[open] {
+  animation: overlay-in var(--dur) var(--ease-settle);
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.sheet {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sheet__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  flex: 0 0 auto;
+  height: 3.5rem;
+  padding-inline: var(--gutter);
+  border-bottom: 1px solid var(--line);
+  background: var(--ink-900);
+}
+
+.sheet__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  font-size: var(--t-sm);
+}
+
+.sheet__close {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  background: none;
+  border: 0;
+  padding: var(--s-2) 0;
+  cursor: pointer;
+}
+
+.sheet__x {
+  position: relative;
+  width: 14px;
+  height: 14px;
+}
+
+.sheet__x::before,
+.sheet__x::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--bone);
+}
+
+.sheet__x::before { transform: rotate(45deg); }
+.sheet__x::after { transform: rotate(-45deg); }
+
+/* The scrolling region. `contain` stops a rubber-band at the end of this list from
+   chaining into the locked document behind it. */
+.sheet__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--s-8) var(--gutter) calc(var(--s-16) + env(safe-area-inset-bottom));
+}
+
+/* --- table of contents ---------------------------------------------------- */
+
+.toc {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  max-width: var(--page-max);
+}
+
+.toc a {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--s-2) var(--s-4);
+  padding-block: var(--s-4);
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--bone-dim);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.toc a:hover,
+.toc a[aria-current] {
+  color: var(--bone);
+}
+
+.toc a[aria-current] .toc__num {
+  color: var(--iri);
+}
+
+.toc__label {
+  font-family: var(--font-display);
+  font-size: var(--t-h3);
+  letter-spacing: var(--ls-display);
+}
+
+.toc__note {
+  grid-column: 2;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.toc__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4) var(--s-8);
+  max-width: var(--page-max);
+  margin: var(--s-12) auto 0;
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+  font-size: var(--t-sm);
+}
+
+/* A button that has to read as a link, because it opens a viewer rather than navigating. */
+.linklike,
+.toc__cv,
+.nav__cv {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--iri-soft);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  transition: text-decoration-color var(--dur-fast) var(--ease-out);
+}
+
+.linklike:hover,
+.toc__cv:hover,
+.nav__cv:hover {
+  text-decoration-color: var(--iri);
+}
+
+.nav__cv {
+  font-family: var(--font-mono);
+  font-size: var(--t-xs);
+  letter-spacing: var(--ls-meta);
+  text-transform: uppercase;
+  color: var(--bone-dim);
+}
+
+/* --- the CV itself -------------------------------------------------------- */
+
+.overlay--cv .sheet__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-6);
+  background: var(--ink-850);
+}
+
+.cv-page {
+  width: 100%;
+  max-width: 54rem;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  /* The CV is black on white; dropped straight onto an ink page it is a slab of glare.
+     Pulling the white back to roughly the page's bone keeps it readable without shouting. */
+  filter: brightness(0.93) contrast(1.02);
+}
+
+/* Photographs beside the prose, with the media column given the larger share. Even columns
+   left the mosaic about 450px wide, which turned six panels into postage stamps; full width
+   went too far the other way and the section became a photo album. */
+.human {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+}
+
+.edu__minor {
+  color: var(--bone-dim);
+  margin-top: var(--s-1);
+}
+
+/* =========================================================== mosaic */
+
+/**
+ * Six panels of deliberately unequal shape. The named grid areas are the layout: one large
+ * portrait panel, one tall, two small squares and two wide strips. Writing it as a template
+ * rather than as spans means the arrangement is legible in one glance here, and changing it
+ * is one string.
+ */
+.mosaic {
+  display: grid;
+  gap: var(--s-3);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  /* The ratio lives on the mosaic, not on the cells. A cell that spans two grid rows and
+     also declares its own aspect-ratio fights the grid for its height and loses, which is
+     what left the panels ragged and the row half empty. */
+  aspect-ratio: 4 / 3.15;
+  grid-template-areas:
+    'a a b c'
+    'a a b d'
+    'e e f f';
+}
+
+.mosaic__cell {
+  position: relative;
+  /* Establishes the 3D space the panel turns inside. Without a perspective the rotation is
+     an affine squash and reads as a wipe, not a turn. */
+  perspective: 1400px;
+}
+
+.mosaic__panel {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 1100ms cubic-bezier(0.62, 0.02, 0.28, 1);
+  will-change: transform;
+}
+
+.mosaic__panel[data-flipped='true'] {
+  transform: rotateY(180deg);
+}
+
+.mosaic__face {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  backface-visibility: hidden;
+  /* Held slightly back from full colour so a wall of photographs does not overpower the
+     ink page it sits on. */
+  filter: saturate(0.82) contrast(1.02) brightness(0.94);
+}
+
+.mosaic__face--back {
+  transform: rotateY(180deg);
+}
+
+@media (max-width: 720px) {
+  .mosaic {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(4, minmax(0, 1fr));
+    aspect-ratio: 2 / 2.9;
+    grid-template-areas:
+      'a a'
+      'b c'
+      'd e'
+      'f f';
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mosaic__panel {
+    transition: none;
+  }
+}

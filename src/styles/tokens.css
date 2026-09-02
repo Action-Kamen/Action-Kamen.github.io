@@ -1,0 +1,142 @@
+/**
+ * Design tokens.
+ *
+ * The palette is defined twice on purpose: once in hex for every browser, then again in
+ * oklch inside an @supports guard. oklch is perceptually uniform, so holding lightness
+ * constant while moving hue actually holds *apparent* brightness constant -- which is the
+ * one property the iridium accent depends on. In sRGB the same hue sweep would visibly
+ * darken through the blues and brighten through the greens.
+ */
+
+:root {
+  /* --- ground ------------------------------------------------------------ */
+  --ink-900: #08090b; /* page */
+  --ink-850: #0b0d10; /* sunken wells, code */
+  --ink-800: #101317; /* raised surface */
+  --ink-700: #171b21; /* hover surface */
+
+  /* --- ink on ground ----------------------------------------------------- */
+  --bone: #e9e5dd; /* primary text. warm, so it reads as paper not as #fff */
+  --bone-dim: #a6a29a; /* secondary */
+  --bone-faint: #6c6a66; /* metadata, captions */
+  --bone-ghost: #3a3a38; /* rules, disabled */
+
+  /* --- iridium ------------------------------------------------------------
+   * One accent, expressed as a hue that each section overrides. Iridium the metal is
+   * silver-white with a cold cast; iridescence is a hue shift at constant lightness.
+   * Sections set --iri-h and everything downstream follows.                          */
+  --iri-h: 232;
+  --iri: #9fc4e8;
+  --iri-soft: #5d7a96;
+  --iri-glow: rgba(159, 196, 232, 0.14);
+
+  /* --- lines ------------------------------------------------------------- */
+  --line: rgba(233, 229, 221, 0.09);
+  --line-strong: rgba(233, 229, 221, 0.18);
+
+  /* --- type -------------------------------------------------------------- */
+  --font-display: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-body: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, monospace;
+
+  /* Fluid scale, 375px -> 1440px. Ratio tightens as it grows so display sizes stay sane. */
+  --t-xs: 0.6875rem; /* 11px, all-caps metadata */
+  --t-sm: 0.8125rem; /* 13px */
+  --t-base: clamp(0.9375rem, 0.9rem + 0.16vw, 1.0625rem);
+  --t-lead: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+  --t-h3: clamp(1.25rem, 1.1rem + 0.7vw, 1.75rem);
+  --t-h2: clamp(1.75rem, 1.4rem + 1.6vw, 3rem);
+  --t-h1: clamp(2.75rem, 1.7rem + 4.6vw, 6.5rem);
+
+  --lh-tight: 1.04;
+  --lh-snug: 1.24;
+  --lh-body: 1.62;
+
+  /* Optical letterspacing: display serifs need negative, small caps need positive. */
+  --ls-display: -0.021em;
+  --ls-meta: 0.11em;
+
+  /* --- space -------------------------------------------------------------
+   * A 4px base. Section rhythm is fluid so a phone does not inherit desktop air.     */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+  --s-section: clamp(4.5rem, 3rem + 7vw, 9rem);
+
+  /* --- layout ------------------------------------------------------------ */
+  --measure: 63ch; /* prose column: long enough to read, short enough to track back */
+  --page-max: 78rem;
+  --gutter: clamp(1.25rem, 0.6rem + 2.6vw, 4rem);
+  /* The marginalia rail carries section numbers and labels. Collapses under 900px. */
+  --rail: 9.5rem;
+
+  /* --- motion ------------------------------------------------------------
+   * Everything on this site *settles* rather than slides -- content converges to a
+   * fixed point. The easing below overshoots by a hair and comes back.               */
+  --ease-settle: cubic-bezier(0.16, 0.84, 0.28, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur: 340ms;
+  --dur-slow: 720ms;
+
+  --radius: 3px; /* almost square. rounded cards are the template look. */
+  color-scheme: dark;
+}
+
+@supports (color: oklch(0.5 0.1 200)) {
+  :root {
+    --ink-900: oklch(0.157 0.006 260);
+    --ink-850: oklch(0.178 0.008 260);
+    --ink-800: oklch(0.209 0.009 260);
+    --ink-700: oklch(0.253 0.011 260);
+
+    --bone: oklch(0.925 0.011 85);
+    --bone-dim: oklch(0.715 0.009 85);
+    --bone-faint: oklch(0.518 0.007 85);
+    --bone-ghost: oklch(0.34 0.005 85);
+
+    /* Constant L and C, hue supplied by the section. This is the whole accent system. */
+    --iri: oklch(0.815 0.072 var(--iri-h));
+    --iri-soft: oklch(0.575 0.052 var(--iri-h));
+    --iri-glow: oklch(0.815 0.072 var(--iri-h) / 0.15);
+
+    --line: oklch(0.925 0.011 85 / 0.1);
+    --line-strong: oklch(0.925 0.011 85 / 0.2);
+  }
+}
+
+/**
+ * The hue sweep. Each section declares where it sits on the spectrum; the accent drifts
+ * cold-blue -> steel -> cyan -> teal as you descend, and the transition below means
+ * crossing a boundary reads as a shift rather than a cut.
+ */
+[data-hue='intro']    { --iri-h: 244; }
+[data-hue='research'] { --iri-h: 228; }
+[data-hue='work']     { --iri-h: 212; }
+[data-hue='exp']      { --iri-h: 196; }
+[data-hue='human']    { --iri-h: 176; }
+[data-hue='contact']  { --iri-h: 158; }
+
+[data-hue] {
+  transition: --iri-h var(--dur-slow) linear;
+}
+
+/* Registering the hue as a typed custom property is what makes it animatable at all. */
+@property --iri-h {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 232;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 1ms;
+    --dur: 1ms;
+    --dur-slow: 1ms;
+  }
+}

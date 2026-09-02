@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family:'Newsreader'; src:url('/fonts/Newsreader.woff2') format('woff2-variations'); font-weight:300 700; }
+  @font-face { font-family:'Instrument Sans'; src:url('/fonts/InstrumentSans.woff2') format('woff2-variations'); font-weight:400 700; }
+  @font-face { font-family:'JetBrains Mono'; src:url('/fonts/JetBrainsMono.woff2') format('woff2-variations'); font-weight:400 700; }
+  * { margin:0; box-sizing:border-box; }
+  body {
+    width:1200px; height:630px; overflow:hidden;
+    background:
+      radial-gradient(90% 120% at 84% 6%, rgba(150,190,230,.20), transparent 58%),
+      radial-gradient(70% 80% at 4% 100%, rgba(90,140,150,.16), transparent 60%),
+      #08090b;
+    color:#e9e5dd; font-family:'Instrument Sans',sans-serif;
+    padding:72px 80px; display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .eyebrow { font-family:'JetBrains Mono',monospace; font-size:17px; letter-spacing:.14em;
+             text-transform:uppercase; color:#6c6a66; }
+  .eyebrow b { color:#9fc4e8; font-weight:400; }
+  h1 { font-family:'Newsreader',serif; font-weight:340; font-size:132px; line-height:.92;
+       letter-spacing:-.035em; }
+  .role { font-family:'Newsreader',serif; font-size:31px; color:#a6a29a; margin-top:22px; max-width:22ch; }
+  .facts { display:flex; gap:56px; border-top:1px solid rgba(233,229,221,.12); padding-top:22px; }
+  .f b { display:block; font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:.14em;
+         text-transform:uppercase; color:#6c6a66; font-weight:500; margin-bottom:7px; }
+  .f span { font-size:20px; color:#e9e5dd; }
+  .f i { font-style:normal; color:#9fc4e8; }
+</style>
+<body>
+  <div>
+    <p class="eyebrow">IIT Bombay <b>/</b> Computer Science <b>/</b> 2026</p>
+    <h1>Anirudh<br>Garg</h1>
+    <p class="role">Compilers, static analysis, and markets.</p>
+  </div>
+  <div class="facts">
+    <div class="f"><b>Now</b><span>Quantitative Trader, <i>Jump Trading</i></span></div>
+    <div class="f"><b>Published</b><span><i>IRIDIUM</i> — OOPSLA 2026</span></div>
+    <div class="f"><b>Before</b><span><i>ETH Zürich</i>, D-INFK</span></div>
+  </div>
+</body>

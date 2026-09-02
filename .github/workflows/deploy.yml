@@ -1,0 +1,54 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# The three permissions Pages needs: read the repo, publish the artifact, and mint the
+# OIDC token deploy-pages exchanges for its deployment credentials.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# A superseded deploy is wasted work, but never cancel one that is mid-flight -- an
+# interrupted deployment can leave the site serving a half-published build.
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # ci, not install: it installs exactly what package-lock.json pins, so a deploy can
+      # never quietly pick up a different dependency tree than the one built locally.
+      - run: npm ci
+
+      # tsc -b runs as part of build, so a type error fails the deploy rather than
+      # shipping. The fonts and images are committed, so no network work happens here.
+      - run: npm run build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
