@@ -532,14 +532,14 @@ export const leadership = [
   {
     role: 'Contingent Leader, InterIIT Tech Meet 14.0',
     org: 'IIT Bombay',
-    period: 'Sep 2025 – Aug 2026',
+    period: 'Sep 2025 – Dec 2025',
     note: 'Led the institute contingent, a team of 100.',
   },
   {
     role: 'Teaching Assistant',
     org: 'CSE, IIT Bombay',
-    period: 'Jul 2024 – Nov 2025',
-    note: 'Machine learning, optimisation models, logic and programming paradigms.',
+    period: 'Jul 2024 – May 2025',
+    note: 'Machine learning, logic and optimisation models.',
   },
   {
     role: 'Media Secretary',
@@ -570,7 +570,7 @@ export const human = {
     'effort still.',
   reading:
     'I read a lot — markets and finance mostly, and whatever else has ended up on the ' +
-    'pile. I spent a year leading the IIT Bombay contingent to InterIIT, which is a ' +
+    'pile. I led the IIT Bombay contingent to InterIIT, which is a ' +
     'hundred people and rather less glamorous than it sounds.',
   writing:
     'I keep a page of musings at @numberfivespeaks — things I was thinking about, written ' +
