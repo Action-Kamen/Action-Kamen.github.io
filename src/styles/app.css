@@ -311,6 +311,8 @@
   font-weight: 400;
   max-width: 22ch;
   margin-bottom: var(--s-6);
+  /* Keeps its own measure instead of being compressed by the chevron beside it. */
+  flex: 0 1 auto;
 }
 
 .paper__title a {
@@ -1457,4 +1459,39 @@
 .paper__body {
   display: grid;
   gap: var(--s-8);
+}
+
+/* Title and its collapse control on one row. */
+.paper__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--s-6);
+  /* An absolute bound, not a ch one: `ch` resolves against each element's own font size,
+     so 24ch here (body text) was about a third of the title's own 22ch (display size) and
+     crushed it to three words a line. Wide enough for the title plus the chevron, narrow
+     enough that the chevron stays beside the thing it collapses. */
+  max-width: 38rem;
+}
+
+.paper__chevron-btn {
+  /* Must be a flex container: .spec__chevron is a span, and an inline box ignores width
+     and height -- inside a plain button it collapsed to a 1px line. */
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-top: 0.75em;
+  padding: var(--s-2);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.paper__chevron-btn[aria-expanded='true'] .spec__chevron {
+  transform: rotate(225deg);
+}
+
+/* The old bar under the links is gone; the body starts straight after the citation. */
+.paper__toggle {
+  display: none;
 }

@@ -66,7 +66,9 @@
   --s-8: 2rem;
   --s-12: 3rem;
   --s-16: 4rem;
-  --s-section: clamp(4.5rem, 3rem + 7vw, 9rem);
+  /* Tightened: the original rhythm left the page feeling like it had been spaced for a
+     gallery rather than a document. */
+  --s-section: clamp(3rem, 2rem + 4vw, 5.5rem);
 
   /* --- layout ------------------------------------------------------------ */
   --measure: 63ch; /* prose column: long enough to read, short enough to track back */

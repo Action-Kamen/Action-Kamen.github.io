@@ -40,11 +40,30 @@ export function Research() {
           {publication.published}
         </p>
 
-        <h3 className="paper__title">
-          <a href={publication.doiUrl}>{publication.title}</a>
-        </h3>
+        <div className="paper__head">
+          <h3 className="paper__title">
+            <a href={publication.doiUrl}>{publication.title}</a>
+          </h3>
+          {/* A separate control rather than wrapping the title: the title is a link to the
+              DOI and must stay one. */}
+          <button
+            type="button"
+            className="paper__chevron-btn"
+            aria-expanded={open}
+            aria-controls="iridium-detail"
+            onClick={() => setOpen((v) => !v)}
+          >
+            <span className="sr-only">
+              {open ? 'Collapse' : 'Expand'} the IRIDIUM entry
+            </span>
+            <span className="spec__chevron" aria-hidden="true" />
+          </button>
+        </div>
 
-        <ol className="paper__authors">
+        {/* Everything below the title folds away: citation, abstract, links, figure and
+            prose. Collapsed, the entry is its venue line and its title. */}
+        <div id="iridium-detail" className="paper__body" hidden={!open}>
+          <ol className="paper__authors">
           {publication.authors.map((author) => (
             <li key={author.name} className={author.self ? 'is-self' : undefined}>
               <span className="paper__author-name">
@@ -69,18 +88,6 @@ export function Research() {
           </a>
         </p>
 
-        <button
-          type="button"
-          className="paper__toggle"
-          aria-expanded={open}
-          aria-controls="iridium-detail"
-          onClick={() => setOpen((v) => !v)}
-        >
-          <span className="meta">The problem, what it does, and the trade</span>
-          <span className="spec__chevron" aria-hidden="true" />
-        </button>
-
-        <div id="iridium-detail" className="paper__body" hidden={!open}>
           {open && (
             <Suspense fallback={<div className="figure figure--placeholder" />}>
               <Figure figure={flagship.figure} label={FIGURE.label} caption={FIGURE.caption} />
