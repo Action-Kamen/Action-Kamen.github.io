@@ -1425,3 +1425,36 @@
     padding-bottom: var(--s-2);
   }
 }
+
+/* The publication's own collapse control. Matches the Selected work chevron so the two
+   sections behave the same way, but sits under the citation rather than on the title —
+   the title is a link to the DOI and should stay a link. */
+.paper__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  width: 100%;
+  max-width: var(--measure);
+  margin: var(--s-8) 0 var(--s-6);
+  padding: var(--s-3) 0;
+  background: none;
+  border: 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  text-align: left;
+}
+
+.paper__toggle:hover .meta {
+  color: var(--bone);
+}
+
+.paper__toggle[aria-expanded='true'] .spec__chevron {
+  transform: rotate(225deg);
+}
+
+.paper__body {
+  display: grid;
+  gap: var(--s-8);
+}

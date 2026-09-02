@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState } from 'react'
 
 import { flagship, publication, researchNotes } from '../data/content'
 import { Section } from './Section'
@@ -24,6 +24,13 @@ const FIGURE = {
  * publication record, the engineering, and the figure. Selected work holds everything else.
  */
 export function Research() {
+  /**
+   * Open by default, like the Selected work entries — the detail is the point, and a
+   * recruiter who skims will not click. The toggle exists so a reader who has finished
+   * with it can fold the section back to a citation.
+   */
+  const [open, setOpen] = useState(true)
+
   return (
     <Section id="research" index="01" label="Research" hue="research">
       <article className="paper">
@@ -62,32 +69,47 @@ export function Research() {
           </a>
         </p>
 
-        <Suspense fallback={<div className="figure figure--placeholder" />}>
-          <Figure figure={flagship.figure} label={FIGURE.label} caption={FIGURE.caption} />
-        </Suspense>
+        <button
+          type="button"
+          className="paper__toggle"
+          aria-expanded={open}
+          aria-controls="iridium-detail"
+          onClick={() => setOpen((v) => !v)}
+        >
+          <span className="meta">The problem, what it does, and the trade</span>
+          <span className="spec__chevron" aria-hidden="true" />
+        </button>
 
-        <div className="spec__prose paper__detail">
-          <div className="spec__block">
-            <h4 className="meta">The problem</h4>
-            <p className="prose">{flagship.problem}</p>
+        <div id="iridium-detail" className="paper__body" hidden={!open}>
+          {open && (
+            <Suspense fallback={<div className="figure figure--placeholder" />}>
+              <Figure figure={flagship.figure} label={FIGURE.label} caption={FIGURE.caption} />
+            </Suspense>
+          )}
+
+          <div className="spec__prose paper__detail">
+            <div className="spec__block">
+              <h4 className="meta">The problem</h4>
+              <p className="prose">{flagship.problem}</p>
+            </div>
+            <div className="spec__block">
+              <h4 className="meta">What the work does</h4>
+              <ul className="spec__list">
+                {flagship.built.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="spec__block">
+              <h4 className="meta">The trade</h4>
+              <p className="prose">{flagship.tradeoff}</p>
+            </div>
           </div>
-          <div className="spec__block">
-            <h4 className="meta">What the work does</h4>
-            <ul className="spec__list">
-              {flagship.built.map((line) => (
-                <li key={line}>{line}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="spec__block">
-            <h4 className="meta">The trade</h4>
-            <p className="prose">{flagship.tradeoff}</p>
-          </div>
+
+          <p className="meta spec__context">
+            {flagship.year} · {flagship.context}
+          </p>
         </div>
-
-        <p className="meta spec__context">
-          {flagship.year} · {flagship.context}
-        </p>
       </article>
 
       <h3 className="work__more meta">Other research</h3>
