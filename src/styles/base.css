@@ -44,6 +44,19 @@ body {
   overflow-x: clip;
 }
 
+/**
+ * The `hidden` attribute only gets `display: none` from the user-agent stylesheet, so ANY
+ * author rule that sets `display` silently cancels it. `.spec__body` sets `display: grid`,
+ * which meant hiding a collapsed project did nothing — the panel stayed open and only the
+ * figure disappeared, because that one is conditionally rendered rather than hidden.
+ *
+ * This is the standard fix and it belongs in the reset, not on one selector: any future
+ * element given `hidden` plus a `display` would hit the same trap.
+ */
+[hidden] {
+  display: none !important;
+}
+
 img,
 svg,
 canvas,
