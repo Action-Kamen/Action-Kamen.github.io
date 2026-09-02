@@ -559,7 +559,6 @@ export const skills = [
   { group: 'Languages', items: ['C++', 'Python', 'R', 'SQL', 'Java', 'OCaml', 'JavaScript', 'Bash', 'LaTeX'] },
   { group: 'Systems', items: ['CUDA', 'LLVM', 'SpiderMonkey', 'QuickJS-NG', 'FreeBSD', 'GDB', 'Slurm', 'Git'] },
   { group: 'Numerical', items: ['PyTorch', 'NumPy', 'Pandas', 'SciPy', 'TensorFlow', 'Matplotlib', 'MIP'] },
-  { group: 'Markets', items: ['Bloomberg', 'Macrobond', 'MATLAB', 'Backtesting', 'Beta estimation'] },
 ]
 
 export const human = {
