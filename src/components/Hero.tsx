@@ -93,8 +93,8 @@ export function Hero() {
           environments, memory — and build the representations that make them analysable. A
           paper at OOPSLA came out of it. In September I start trading at Jump in Singapore.{' '}
           <span className="hero__aside">
-            Off the clock: a bicycle, a squash court, a piano, and a harmonica that is not
-            going well.
+            Off the clock: a bicycle, a squash court, a piano and a harmonica that needs a
+            lot of effort still.
           </span>
         </p>
 
