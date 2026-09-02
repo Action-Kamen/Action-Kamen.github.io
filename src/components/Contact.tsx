@@ -8,7 +8,7 @@ export function Contact() {
   return (
     <Section id="contact" index="05" label="Contact" hue="contact">
       <p className="contact__lead display">
-        Best by email. I read everything, and I answer things that are actually about the work.
+        Best by email. I read everything that comes in.
       </p>
 
       {/*

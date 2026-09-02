@@ -856,6 +856,14 @@
 @media (max-width: 900px) {
   .human {
     grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-8);
+  }
+
+  /* Stacked, both halves get the whole column: the prose reaches its measure and the
+     mosaic panels are finally large enough to make out a face. */
+  .human__text,
+  .human__media {
+    max-width: none;
   }
 }
 
@@ -1282,9 +1290,19 @@
 /* Photographs beside the prose, with the media column given the larger share. Even columns
    left the mosaic about 450px wide, which turned six panels into postage stamps; full width
    went too far the other way and the section became a photo album. */
-.human {
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  align-items: start;
+/**
+ * Two columns only where there is room for two.
+ *
+ * This rule sits after the `max-width: 900px` override further up the file, and a media
+ * query carries no extra specificity — so unscoped it won the cascade at every width and
+ * a phone got a 0.9fr text column beside a 1.1fr mosaic, roughly 150px each. Bounding it
+ * from below is the fix; source order stops mattering once the two rules cannot both apply.
+ */
+@media (min-width: 901px) {
+  .human {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: start;
+  }
 }
 
 .edu__minor {
@@ -1355,9 +1373,13 @@
 @media (max-width: 720px) {
   .mosaic {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(4, minmax(0, 1fr));
-    aspect-ratio: 2 / 2.9;
+    /* Five rows, and the solo panel takes two of them. Spanning both columns but only one
+       row made it a 350x118 letterbox — the wrong shape for a portrait, and too short to
+       make out a face. */
+    grid-template-rows: repeat(5, minmax(0, 1fr));
+    aspect-ratio: 2 / 3.5;
     grid-template-areas:
+      'a a'
       'a a'
       'b c'
       'd e'
